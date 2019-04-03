@@ -1,1 +1,0 @@
-alert('ui-control works')

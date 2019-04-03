@@ -14,8 +14,8 @@ function InitGround(){
 	ground.rotation.x = -Math.PI/2;
 	scene.add( ground );
 	ground.receiveShadow = true;
-	heightmap = new HeightMap("./textures/heightmap2.png", DoSomething);
-	//heightmap = new HeightMap("./textures/Heightmap1.png", DoSomething);
+	heightmap = new HeightMap("./assets/heightmap2.png", DoSomething);
+	//heightmap = new HeightMap("./assets/Heightmap1.png", DoSomething);
 }
 
 
@@ -26,7 +26,7 @@ function DoSomething(){
 			xt = x - heightmap.height/2;
 			yt = Math.ceil(heightmap.data[x+(z*heightmap.width)]/10);
 			zt = z - heightmap.width/2;
-			scene.add( new BaseCube( xt, yt, zt) );		
+			scene.add( new LandCube( xt, yt, zt) );		
 		}
 	}	
     InitPosition();
