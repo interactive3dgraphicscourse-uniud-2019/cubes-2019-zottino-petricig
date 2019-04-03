@@ -22,20 +22,10 @@ class HeightMap {
         this.height = canvas.height = img.height;
         var context = canvas.getContext('2d');
 
-        //heightMatrixay Creation
         var size = img.width * img.height;
-        var heightMatrix = [];
-
         context.drawImage(img,0,0);
 
-        //Setting all heightMatrixay values to 0
-        for(var i=0; i<this.width; i++) {
-            heightMatrix[i] = [];
-            for(var j=0; j<this.height; j++) {
-                heightMatrix[i][j] = undefined;
-            }
-        }
-
+        //Setting all array values to 0
         for(var i=0; i<this.width; i++) {
             this.matrix[i] = [];
             for(var j=0; j<this.height; j++) {

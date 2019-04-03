@@ -14,11 +14,11 @@ function InitGround(){
 	ground.rotation.x = -Math.PI/2;
 	scene.add( ground );
 	ground.receiveShadow = true;
-	//heightmap = new HeightMap("./assets/Heightmap7.png", BuildTerrain);
+	heightmap = new HeightMap("./assets/Heightmap5.png", DoSomething);
 }
 
 
-function BuildTerrain(){
+function DoSomething(){
 	console.log(heightmap)
 	for(x = 0; x < heightmap.width; x++){
 		for(z = 0; z < heightmap.height; z++){
