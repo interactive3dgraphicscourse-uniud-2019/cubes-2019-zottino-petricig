@@ -1,6 +1,6 @@
 <html>
 	<head>
-		<title>Starting Code for 1st Project 2017 - with lights and textures</title>
+		<title>Starting Code for 1st Project 2017 - with lights and assets</title>
 		<style>
 		
 		body {
@@ -16,10 +16,10 @@
 		}
 	
 	</style>
-		<script src="lib/three.min.js"></script>
-		<script src="lib/stats.min.js"></script>
-		<script src="lib/Coordinates.js"></script>
-		<script src="lib/OrbitControls.js"></script>
+		<script src="../libs/three.min.js"></script>
+		<script src="../libs/stats.min.js"></script>
+		<script src="../libs/Coordinates.js"></script>
+		<script src="../libs/OrbitControls.js"></script>
 	</head>
 	<body>
 		
@@ -44,7 +44,7 @@
 			camera.lookAt( new THREE.Vector3(0,0,0));
 			
 			var geometry = new THREE.BoxGeometry(1,1,1);
-			var texture = THREE.ImageUtils.loadTexture('textures/11635.jpg');
+			var texture = THREE.ImageUtils.loadTexture('../assets/land.jpg');
 			var material = new THREE.MeshPhongMaterial( { map: texture } );
 			var cube = new THREE.Mesh( geometry, material );
 			cube.castShadow = true;

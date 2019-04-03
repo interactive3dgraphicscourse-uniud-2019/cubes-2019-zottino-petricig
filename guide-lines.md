@@ -40,7 +40,7 @@ work and write a final report, as detailed below.
 
 ## Starting code
 
-I have provided two starting scenes, one without lights and textures, and one which includes a basic lighting setup 
+I have provided two starting scenes, one without lights and assets, and one which includes a basic lighting setup 
 and an example of texture usage. Your final result should be obtained by modifiying ONE of these files. 
 
 Choose the one you prefer based on the kind of result you want to obtain, and how much you want to experiment with features we haven't yet explained in our lectures. You are free to do any modifications, including replacing my code, e.g. to use an orthographic camera instead of a perspective one.
@@ -97,7 +97,7 @@ The report should be as brief as possible while covering the following points:
 
 ## Constraints
 
-If you use textures, please make sure that you have the rights to include them. For example, search for images that come with a [CC Attribution, ShareAlike or NonCommercial licences](https://creativecommons.org/share-your-work/licensing-types-examples/). 
+If you use assets, please make sure that you have the rights to include them. For example, search for images that come with a [CC Attribution, ShareAlike or NonCommercial licences](https://creativecommons.org/share-your-work/licensing-types-examples/). 
 
 You are allowed to take inspiration, or create models that reproduce what you see in images on the internet, but copying others' work, even with slight modifications, is forbidden and will have serious consequences beyond the deletion of your project. In any case, mention any source of inspiration in your journal and final report.
 
