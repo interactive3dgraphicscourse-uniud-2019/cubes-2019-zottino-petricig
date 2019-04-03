@@ -1,29 +1,25 @@
 <html>
 	<head>
+		<meta name="author" content="Edoardo Lenzi">
+		<meta name="author" content="Alessandro Zottino">
+		<meta name="author" content="Aleksej Petricig">
 		<title>World of Cubes 2019 - with lights and textures</title>
-		<style>
-		
-		body {
-			font-family: Monospace;
-			background-color: #f0f0f0;
-			margin: 0px;
-			overflow: hidden;
-		}
-		
-		canvas { 
-			width: 100%; 
-			height: 100%;
-		}
-	
-	</style>
+		<link rel="stylesheet" type="text/css" href="mystyle.css">
+
 		<script src="libs/three.min.js"></script>
 		<script src="libs/stats.min.js"></script>
 		<script src="libs/Coordinates.js"></script>
 		<script src="libs/OrbitControls.js"></script>
 	</head>
+	
 	<body>
-		<script src="heithmap-manager.js"></script>
-		<script src="terrain-builder.js"></script>
-		<script src="ui-control.js"></script>
+
+		<script src="utils/cube.js"></script>
+
+		<script src="utils/camera-manager.js"></script>
+		<script src="utils/light-manager.js"></script>
+		<script src="utils/heithmap-manager.js"></script>
+		<script src="utils/ground-manager.js"></script>
+		<script src="main.js"></script>
 	</body>
 </html>
