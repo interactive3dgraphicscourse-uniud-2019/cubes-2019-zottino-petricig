@@ -24,7 +24,7 @@ function DoSomething(){
 	for(x = 0; x < heightmap.width; x++){
 		for(z = 0; z < heightmap.height; z++){
 			xt = x - heightmap.height/2;
-			yt = 10;//Math.ceil(heightmap.data[x+(z*heightmap.width)]/10);
+			yt = heightmap.matrix[x][z].height;
 			zt = z - heightmap.width/2;
 			scene.add( new LandCube( xt, yt, zt) );		
 		}

@@ -1,17 +1,18 @@
 class HeightMap {
     
     constructor( img_path, callback ){
-        var img = new Image();
         var self = this;
+        this.width = 0;
+        this.height = 0;
+        this.matrix = [];
+        var img = new Image();
         img.onload = function () {
             self.GetHeight(img);
             callback();
         };
         // load img source
         img.src = img_path;
-        this.width = 0;
-        this.height = 0;
-        this.matrix = [];
+
     }
 
     GetHeight(img) {
@@ -24,7 +25,6 @@ class HeightMap {
         //Array Creation
         var size = img.width * img.height;
         var arr = new Float32Array(size);
-        this.matrix = [];
 
         context.drawImage(img,0,0);
 
@@ -52,7 +52,6 @@ class HeightMap {
                 col++;
             }
             var rgbsum = pixel[i]+pixel[i+1]+pixel[i+2];
-            // heightMatrix[k++] = { height: Math.ceil(rgbsum/3)/10, jump: 0};
             this.matrix[row][col] = { height: Math.ceil(rgbsum/3)/10, jump: 0};
             row++;
         }
