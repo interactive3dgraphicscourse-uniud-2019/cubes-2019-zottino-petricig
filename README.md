@@ -10,7 +10,7 @@ The idea is to build a **terrain** (10x10) made by cubes with different colors f
 ## Further developments and ideas
 
 The idea is to add an intro in which the **cubes fall down from the sky**, defining the terrain. 
-Depending on the height, **different textures** will be applied to the cubes in order to create snow, rocks, meadows, rivers and lakes effects.
+Depending on the height, **different assets** will be applied to the cubes in order to create snow, rocks, meadows, rivers and lakes effects.
 
 In this first time the camera moves independently and creates a **short movie** full of animations; in a second time the user takes the control of the camera and is **free to explore the world** using the keyboard arrows.
 

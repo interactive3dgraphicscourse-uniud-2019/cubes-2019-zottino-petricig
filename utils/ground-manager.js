@@ -14,17 +14,20 @@ function InitGround(){
 	ground.rotation.x = -Math.PI/2;
 	scene.add( ground );
 	ground.receiveShadow = true;
-	heightmap = new HeightMap("./textures/heightmap2.png", DoSomething);
+	heightmap = new HeightMap("./assets/Heightmap7.png", BuildTerrain);
 }
 
-function DoSomething(){
-	alert("loading complete")
-	console.log(heightmap)
 
-	for(x in heightmap.width){
-		for(y in heightmap.height){
-			var cube = CreateCube();
-			scene.add( cube );
+function BuildTerrain(){
+	for(var x = 0; x < heightmap.width; x++){
+		for(var z = 0; z < heightmap.height; z++){
+			var xt = x - heightmap.height/2;
+			var yt = heightmap.matrix[x][z].height;
+			var zt = z - heightmap.width/2;
+			for(var j = 0; j <= heightmap.matrix[x][z].jump; j++){
+				scene.add( new LandCube( xt, yt - j, zt) );	
+			}
 		}
 	}	
+    InitPosition();
 }
