@@ -13,5 +13,18 @@ function InitGround(){
 	ground.position.y = -0.5;
 	ground.rotation.x = -Math.PI/2;
 	scene.add( ground );
-    ground.receiveShadow = true;
+	ground.receiveShadow = true;
+	heightmap = new HeightMap("./textures/heightmap2.png", DoSomething);
+}
+
+function DoSomething(){
+	alert("loading complete")
+	console.log(heightmap)
+
+	for(x in heightmap.width){
+		for(y in heightmap.height){
+			var cube = CreateCube();
+			scene.add( cube );
+		}
+	}	
 }
