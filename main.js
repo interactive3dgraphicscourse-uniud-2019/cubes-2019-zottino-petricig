@@ -35,8 +35,6 @@ function Start() {
     InitStat();
     InitRenderer();
     InitScene();
-    InitCamera();
-    CameraControl();
     InitGround();
 
 	// uncomment if you need to draw coordinate axes when building the scene

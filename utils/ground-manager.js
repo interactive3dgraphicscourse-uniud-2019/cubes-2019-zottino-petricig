@@ -22,8 +22,12 @@ function InitGround(){
 function DoSomething(){
 	console.log(heightmap)
 	for(x = 0; x < heightmap.width; x++){
-		for(y = 0; y < heightmap.height; y++){
-			scene.add( new BaseCube(x, heightmap.data[x+(y*heightmap.width)]/100, y) );		
+		for(z = 0; z < heightmap.height; z++){
+			xt = x - heightmap.height/2;
+			yt = Math.ceil(heightmap.data[x+(z*heightmap.width)]/10);
+			zt = z - heightmap.width/2;
+			scene.add( new BaseCube( xt, yt, zt) );		
 		}
 	}	
+    InitCamera();
 }

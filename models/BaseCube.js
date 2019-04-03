@@ -15,5 +15,4 @@ class BaseCube extends THREE.Mesh {
 		this.receiveShadow = true;
 		this.position.set( x, y, z );
 	}
-	
 }
