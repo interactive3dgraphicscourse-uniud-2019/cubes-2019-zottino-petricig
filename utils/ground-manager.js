@@ -12,12 +12,12 @@ function InitGround(){
 	var ground = new THREE.Mesh( groundGeo, groundMat );
 	ground.position.y = -0.5;
 	ground.rotation.x = -Math.PI/2;
-	//scene.add( ground );
+	scene.add( ground );
 	ground.receiveShadow = true;
 	heightmap = new HeightMap("./textures/heightmap2.png", DoSomething);
 	//heightmap = new HeightMap("./textures/Heightmap1.png", DoSomething);
-	
 }
+
 
 function DoSomething(){
 	console.log(heightmap)
@@ -29,5 +29,5 @@ function DoSomething(){
 			scene.add( new BaseCube( xt, yt, zt) );		
 		}
 	}	
-    InitCamera();
+    InitPosition();
 }
