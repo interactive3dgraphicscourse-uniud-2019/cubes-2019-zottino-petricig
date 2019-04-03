@@ -1,9 +1,3 @@
-/*
-* TODO doc
-*/
-
-// alert('heightmap-manager works')
-
 // alert('heightmap-manager works')
 function getHeight(img) {
 
