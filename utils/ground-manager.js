@@ -20,15 +20,13 @@ function InitGround(){
 
 function BuildTerrain(){
 	console.log(heightmap)
-	//for(x = 0; x < heightmap.width; x++){
-	//	for(z = 0; z < heightmap.height; z++){
-	//		xt = x - heightmap.height/2;
-	//		yt = heightmap.data[x][z].height;
-	//		zt = z - heightmap.width/2;
-	//		scene.add( new LandCube( xt, yt, zt) );		
-	//	}
-	//}	
-	//debugger;
-	scene.add( new LandCube( 1,1,1) );		
+	for(x = 0; x < heightmap.width; x++){
+		for(z = 0; z < heightmap.height; z++){
+			xt = x - heightmap.height/2;
+			yt = heightmap.matrix[x][z].height;
+			zt = z - heightmap.width/2;
+			scene.add( new LandCube( xt, yt, zt) );		
+		}
+	}	
     InitPosition();
 }
