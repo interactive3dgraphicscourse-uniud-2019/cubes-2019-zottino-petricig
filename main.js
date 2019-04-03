@@ -3,7 +3,7 @@
 */
 
 // Global variables and constants
-var scene, camera, renderer, controls, stats;
+var scene, camera, renderer, controls, stats, heightmap;
 var n = 10;
 
 function InitRenderer(){
@@ -41,9 +41,6 @@ function Start() {
 
 	// uncomment if you need to draw coordinate axes when building the scene
     Coordinates.drawAllAxes();
-    
-    var cube = CreateCube();
-    scene.add( cube );	
 }
 
 function Update() {
