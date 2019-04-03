@@ -12,19 +12,18 @@ function InitGround(){
 	var ground = new THREE.Mesh( groundGeo, groundMat );
 	ground.position.y = -0.5;
 	ground.rotation.x = -Math.PI/2;
-	scene.add( ground );
+	//scene.add( ground );
 	ground.receiveShadow = true;
 	heightmap = new HeightMap("./textures/heightmap2.png", DoSomething);
+	//heightmap = new HeightMap("./textures/Heightmap1.png", DoSomething);
+	
 }
 
 function DoSomething(){
-	alert("loading complete")
 	console.log(heightmap)
-
-	for(x in heightmap.width){
-		for(y in heightmap.height){
-			var cube = CreateCube();
-			scene.add( cube );
+	for(x = 0; x < heightmap.width; x++){
+		for(y = 0; y < heightmap.height; y++){
+			scene.add( new BaseCube(x, heightmap.data[x+(y*heightmap.width)]/100, y) );		
 		}
 	}	
 }
