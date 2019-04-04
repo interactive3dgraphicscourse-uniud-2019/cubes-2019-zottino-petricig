@@ -9,6 +9,7 @@ const LAND_LVL = 8;
 const HIGH_RED_LVL = 12;
 const ROCK_LVL = 20;
 
+
 function InitGround(){
 	var groundGeo = new THREE.PlaneBufferGeometry( 10000, 10000 );
 	var groundMat = new THREE.MeshPhongMaterial( { color: 0xffffff, specular: 0x050505 } );

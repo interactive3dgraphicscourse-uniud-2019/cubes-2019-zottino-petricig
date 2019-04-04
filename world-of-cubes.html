@@ -11,6 +11,23 @@
 		<script src="libs/stats.min.js"></script>
 		<script src="libs/Coordinates.js"></script>
 		<script src="libs/OrbitControls.js"></script>
+
+		<script type="text/x-glsl" id="vertex">
+			uniform vec3 materialColor;
+			varying vec3 vColor;
+			void main() {
+				// transforms the vertex from object space to clip space coords
+				gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
+				vColor = materialColor;
+			}
+		</script>
+		<script type="text/x-glsl" id="fragment">
+			varying vec3 vColor;
+			void main() {
+			 	gl_FragColor = vec4(vColor, 1.0);
+			}
+		</script>
+
 	</head>
 	
 	<body>
