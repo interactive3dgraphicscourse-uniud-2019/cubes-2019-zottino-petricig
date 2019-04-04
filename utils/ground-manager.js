@@ -3,7 +3,11 @@
 */
 
 // alert('ground-manager imported')
-
+const WATER_LVL = 2;
+const LOW_RED_LVL = 3;
+const LAND_LVL = 8;
+const HIGH_RED_LVL = 12;
+const ROCK_LVL = 20;
 
 function InitGround(){
 	var groundGeo = new THREE.PlaneBufferGeometry( 10000, 10000 );
@@ -25,7 +29,25 @@ function BuildTerrain(){
 			var yt = heightmap.matrix[x][z].height;
 			var zt = z - heightmap.width/2;
 			for(var j = 0; j <= heightmap.matrix[x][z].jump; j++){
-				scene.add( new LandCube( xt, yt - j, zt) );	
+				var ytb = yt + Math.floor((Math.random() * 100) % 3) - 1  
+				if(yt <= WATER_LVL){
+					scene.add( new WaterCube( xt, yt - j, zt) );	
+				}
+				if(yt > WATER_LVL && ytb <= LOW_RED_LVL){
+					scene.add( new RedCube( xt, yt - j, zt) );	
+				}
+				if(ytb > LOW_RED_LVL && ytb <= LAND_LVL){
+					scene.add( new LandCube( xt, yt - j, zt) );	
+				}
+				if(ytb > LAND_LVL && ytb <= HIGH_RED_LVL){
+					scene.add( new RedCube( xt, yt - j, zt) );	
+				}
+				if(ytb > HIGH_RED_LVL && ytb <= ROCK_LVL){
+					scene.add( new RockCube( xt, yt - j, zt) );	
+				}
+				if(ytb > ROCK_LVL){
+					scene.add( new SnowCube( xt, yt - j, zt) );	
+				}
 			}
 		}
 	}	
