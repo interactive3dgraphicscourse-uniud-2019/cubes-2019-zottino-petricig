@@ -53,6 +53,7 @@ function Start() {
 	Coordinates.drawAllAxes();
 	window.addEventListener( 'resize', OnWindowResize, false );
 	document.addEventListener( 'mousemove', OnMouseMove, false );
+	window.addEventListener( 'wheel', OnMouseWheel, false );
 	raycaster = new THREE.Raycaster();
 }
 
