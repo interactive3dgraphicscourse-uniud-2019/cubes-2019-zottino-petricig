@@ -6,7 +6,11 @@
 
 
 function InitCamera(){
-	camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
+	camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 1, 20000 );
+	cameraPerspectiveHelper = new THREE.CameraHelper( camera );
+	cameraPerspectiveHelper.visible = true;
+	scene.add( cameraPerspectiveHelper );
+
 	InitControl()
 }
 
