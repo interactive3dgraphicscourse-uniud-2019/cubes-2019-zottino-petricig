@@ -1,0 +1,141 @@
+<html>
+    <head> 
+        <title> Octahedron</title>
+    </head>
+
+    <script src="../lib/three.js"></script>
+    <script src="../lib/stats.min.js"></script>
+    <script src="../lib/Coordinates.js"></script>
+    <script src="../lib/OrbitControls.js"></script>
+    <body>
+    </body>
+
+    <script>
+
+        var stats, scene, camera, renderer, octa, controls, geometry, splits = 0;
+
+        var vertices = [ /*0*/ new THREE.Vector3( 0,1,0 ),  /* up    */
+                         /*1*/ new THREE.Vector3( 0,-1,0 ), /* down  */
+                         /*2*/ new THREE.Vector3( 1,0,0 ),  /* right */
+                         /*3*/ new THREE.Vector3( -1,0,0 ), /* left  */                
+                         /*4*/ new THREE.Vector3( 0,0,1 ),  /* back  */
+                         /*5*/ new THREE.Vector3( 0,0,-1 )  /* front */];
+
+        var faces = [new THREE.Face3(3,0,5),
+                     new THREE.Face3(0,2,5),
+                     new THREE.Face3(3,5,1),
+                     new THREE.Face3(5,2,1),
+                    
+                     new THREE.Face3(0,3,4),
+                     new THREE.Face3(2,0,4),
+                     new THREE.Face3(4,3,1),
+                     new THREE.Face3(2,4,1)]
+
+
+
+        function MiddlePont(a, b){
+            return new THREE.Vector3((a.x + b.x) / 2, (a.y + b.y) / 2, (a.z + b.z) / 2 );
+        }
+
+        function ScaleVector(a){
+            var scale = 1/Math.sqrt(a.x * a.x + a.y * a.y + a.z * a.z);
+            a.x *= scale;
+            a.y *= scale;
+            a.z *= scale;
+            return a;
+        }
+
+        function SplitTriangles(){
+            debugger;
+            var new_faces = []; 
+            for (var i = 0; i < faces.length; i++) {
+                var face = faces[i];
+                var ab = MiddlePont(vertices[face.a], vertices[face.b]);
+                var bc = MiddlePont(vertices[face.b], vertices[face.c]);
+                var ca = MiddlePont(vertices[face.c], vertices[face.a]);
+                var vertex_count = vertices.length;
+
+                ca = ScaleVector(ca)
+                bc = ScaleVector(bc)
+                ab = ScaleVector(ab)
+
+                vertices.push( ab, bc, ca );
+                new_faces.push(new THREE.Face3(face.a, vertex_count + 0, vertex_count + 2)) // a ab ac
+                new_faces.push(new THREE.Face3(vertex_count + 0, face.b, vertex_count + 1)) // ab b bc
+                new_faces.push(new THREE.Face3(vertex_count + 1, face.c, vertex_count + 2)) // bc c ac
+                new_faces.push(new THREE.Face3(vertex_count + 0, vertex_count + 1, vertex_count + 2)) // ab bc ac
+            }
+            for(var i = 0; i < new_faces.length; i++){
+                faces.push(new_faces[i]);
+            }
+            ApplyChanges();
+        }
+
+        function ApplyChanges(){
+            new_geometry = new THREE.Geometry(); 
+            for(var i = 0; i < vertices.length; i++){
+                new_geometry.vertices.push(vertices[i]);
+            }
+            for(var i = 0; i < faces.length; i++){
+                new_geometry.faces.push(faces[i]);
+            }
+            octa.geometry = new_geometry
+        }
+
+        function Init(){
+            scene = new THREE.Scene();
+            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            camera.position.z = 5;
+
+            geometry = new THREE.Geometry(); 						
+            // Setto quale faccia renderizzare, con DoubleSide non ho problemi ma appesantisco
+            var material = new THREE.MeshBasicMaterial( { color:0xfbad4c, side: THREE.FrontSide });
+            material.wireframe = true; 
+            
+            octa = new THREE.Mesh(geometry, material);
+            ApplyChanges()
+            octa.geometry.groupsNeedUpdate = true;
+            octa.geometry.verticesNeedUpdate = true;
+            octa.geometry.elementsNeedUpdate = true;
+            octa.geometry.morphTargetsNeedUpdate = true;
+            octa.geometry.uvsNeedUpdate = true;
+            octa.geometry.normalsNeedUpdate = true;
+            octa.geometry.colorsNeedUpdate = true;
+            octa.geometry.tangentsNeedUpdate = true;
+            scene.add( octa);
+            
+            renderer = new THREE.WebGLRenderer();
+            renderer.setClearColor( 0xf0f0f0 ); 	
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            document.body.appendChild(renderer.domElement)
+            
+            // Stats
+            stats = new Stats();
+			stats.domElement.style.position = 'absolute';
+			stats.domElement.style.top = '0px';
+            document.body.appendChild( stats.domElement );
+            
+            // Draw Axes
+            Coordinates.drawAllAxes();
+            
+            // Orbit Controls
+            controls = new THREE.OrbitControls( camera );
+            
+        }
+        
+        function Render(){
+            stats.update();
+            controls.update();
+            requestAnimationFrame(Render); 
+            renderer.render(scene, camera);
+            if(splits < 5){
+                splits++;
+                SplitTriangles();
+            }
+        }
+
+        Init();
+        Render();
+    
+    </script>
+</html>
