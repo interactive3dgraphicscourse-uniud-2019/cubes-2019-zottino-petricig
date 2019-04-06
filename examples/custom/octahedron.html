@@ -1,4 +1,4 @@
-<html>
+x, y, z, material<html>
     <head> 
         <title> Octahedron</title>
     </head>
@@ -31,8 +31,6 @@
                      new THREE.Face3(2,0,4),
                      new THREE.Face3(4,3,1),
                      new THREE.Face3(2,4,1)]
-
-
 
         function MiddlePont(a, b){
             return new THREE.Vector3((a.x + b.x) / 2, (a.y + b.y) / 2, (a.z + b.z) / 2 );
@@ -102,7 +100,7 @@
                 //map: texture,
                 //alphaTest: 0.5,
                 transparent: true,
-                depthWrite: false, depthTest: false,
+                //depthWrite: false, depthTest: false,
                 side: THREE.FrontSide });
             geometry.computeFaceNormals();
 
