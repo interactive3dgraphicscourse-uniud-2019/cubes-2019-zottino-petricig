@@ -25,10 +25,11 @@
 	<body>
 		
 		<script>
-		
+			
 		var scene, camera, renderer, controls, stats;
 		var clock = new THREE.Clock();
 		var message;
+		var RenderAnimation = RenderTextIntro;
 
 		function Start() {
 			scene = new THREE.Scene();
@@ -151,14 +152,26 @@
 		}
 		
 		function Render() {
-			var speed = 100;
+			RenderAnimation()
+			renderer.render(scene, camera);
+		}
+
+
+		function RenderTextIntro(){
+			var speed = 150;
 			var time = Date.now() * 0.0005;
 			var delta = clock.getDelta();
 			message.position.z -= delta * speed;
 			if(message.position.z < -2050){
-				alert("end")
+				scene.remove(message)
+				RenderAnimation = RenderCameraDown
 			}
-			renderer.render(scene, camera);
+		}
+
+		function RenderCameraDown(){
+			var speed = 150;
+			var delta = clock.getDelta();
+			scene.rotation.x += delta * 0.1
 		}
 		
 		Start();
