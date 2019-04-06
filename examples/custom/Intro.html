@@ -30,6 +30,7 @@
 		var clock = new THREE.Clock();
 		var message;
 		var RenderAnimation = RenderTextIntro;
+		var origin
 
 		function Start() {
 			scene = new THREE.Scene();
@@ -79,11 +80,14 @@
 			scene.add(message)
 			//cube
 
-			var geometry = new THREE.BoxGeometry(10,10,10);
-			var material = new THREE.MeshBasicMaterial();
+			var geometry = new THREE.BoxGeometry(50,50,50);
+			var material = new THREE.MeshBasicMaterial({color: 0xd6ac62});
+			origin = new THREE.Mesh( geometry, material );
+			scene.add( origin );
+
 			var cube = new THREE.Mesh( geometry, material );
-			cube.position.set(0,0,0)
-			//scene.add( cube );
+			cube.position.set(0, -1000, 500)
+			scene.add( cube );
 
 			hemiLight = new THREE.HemisphereLight( 0xffffff, 0xffffff, 0.6 );
 			hemiLight.color.setHSL( 0.6, 1, 0.6 );
@@ -107,7 +111,7 @@
 			document.body.appendChild( stats.domElement );
 			
 			// uncomment if you need to draw coordinate axes when building the scene
-			//Coordinates.drawAllAxes();
+			Coordinates.drawAllAxes();
 			
 			controls = new THREE.OrbitControls( camera );
 			controls.addEventListener( 'change', Render );
@@ -162,9 +166,23 @@
 			var time = Date.now() * 0.0005;
 			var delta = clock.getDelta();
 			message.position.z -= delta * speed;
-			if(message.position.z < -2050){
+			if(true){
+			//if(message.position.z < -2050){
 				scene.remove(message)
 				RenderAnimation = RenderCameraDown
+				CreateCubes()
+			}
+		}
+
+		function CreateCubes(){
+			var geometry = new THREE.BoxBufferGeometry(10,10,10);
+			var material = new THREE.MeshBasicMaterial();
+			for ( var i = 0; i < 3000; i ++ ) {
+				var cube = new THREE.Mesh( geometry, material );
+				cube.position.set( THREE.Math.randFloatSpread( 1000 ),
+								   THREE.Math.randFloatSpread( 1000 ) - 1000,
+								   THREE.Math.randFloatSpread( 1000 ) + 500)
+				scene.add( cube );
 			}
 		}
 
@@ -172,6 +190,17 @@
 			var speed = 150;
 			var delta = clock.getDelta();
 			scene.rotation.x += delta * 0.1
+			scene.position.y += delta * 150
+			if(scene.position.y >= 1000){
+				// alert("ciao")	
+				RenderAnimation = Stop
+			}
+		}
+
+		function Stop(){
+			var r = Date.now() * 0.0005;
+			camera.position.x = 650 * Math.cos( r );
+			camera.position.z = 650 * Math.sin( r );
 		}
 		
 		Start();
