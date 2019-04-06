@@ -28,8 +28,9 @@ function InitScene(){
     scene = new THREE.Scene();
     scene.add( CreateHemiLight() ); //creates a base uniform light 
 	scene.add( CreateDirLight() );  //creates shadows
-	scene.background = new THREE.Color( 0xf1e1e1 );
-	scene.fog = new THREE.FogExp2( 0xffffff, 0.00015 );
+	scene.background = new THREE.Color( 0xffffff/*0xf1e1e1*/ );
+	scene.fog = new THREE.FogExp2( 0xffffff, 0.05 );
+	//scene.fog = new THREE.Fog( 0xffffff, 200, 250 );
 	var ambientLight = new THREE.AmbientLight( 0xcccccc );
 	scene.add( ambientLight );
 }
