@@ -4,7 +4,7 @@
 
 // alert('cube imported')
 
-var boxGeometry = new THREE.BoxGeometry(1,1,1);
+var boxGeometry = new THREE.BoxBufferGeometry(1,1,1);
 
 class BaseCube extends THREE.Mesh {
 	constructor(x, y, z, material){

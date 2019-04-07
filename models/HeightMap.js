@@ -1,5 +1,4 @@
 class HeightMap {
-    
     constructor( img_path, callback ){
         var self = this;
         this.width = 0;
