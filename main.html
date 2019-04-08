@@ -12,12 +12,12 @@
 		<script src="libs/Coordinates.js"></script>
 		<script src="libs/OrbitControls.js"></script>
 		<script src="libs/dat.gui.min.js"></script>
+		<script src="libs/PointerLockControls.js"></script>
 
 		<script type="text/x-glsl" id="vertex">
 			uniform vec3 materialColor;
 			varying vec3 vColor;
 			void main() {
-				// transforms the vertex from object space to clip space coords
 				gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
 				vColor = materialColor;
 			}
@@ -33,8 +33,19 @@
 	</head>
 	
 	<body>
-		<div id="container"><br /><br /><br /><br /><br />Generating world...</div>
-		<div id="info">[First Course Project 2019 - World of Cubes]</div>
+
+		<input id="file-input" type="file" name="name" style="display: none;" />
+
+		<div id="blocker">
+			<div id="instructions">
+				<span style="font-size:60px">[First Course Project 2019 - World of Cubes]</span>
+				<br /><br />
+				<span style="font-size:40px">Click to play</span>
+				<br /><br />
+				Controls: (W, A, S, D = Move, SPACE = Jump, MOUSE = Look around)
+			</div>
+		</div>
+		
 		<script src="models/BaseCube.js"></script>
 		<script src="models/SnowCube.js"></script>
 		<script src="models/RockCube.js"></script>
