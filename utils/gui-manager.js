@@ -1,15 +1,45 @@
+/*
+* Simple script that init dat.gui interface and adds to checkboxes for  
+* light management
+*/ 
+
 var gui = new dat.GUI();
 
-
-var effectController = {
-    focalLength: 15,
-    fstop: 2.8,
-    showFocus: false,
-    focalDepth: 3,
+var settings = {
+    hemiLight: true,
+    dirLight: true,
 };
+  
+gui.add(settings, 'hemiLight').onChange(function (value) {
+    if(value){
+        scene.add( hemiLight ); //creates a base uniform light 
+    } else{
+        scene.remove( hemiLight ); //creates a base uniform light 
+    }
+}); 
+  
+gui.add(settings, 'dirLight').onChange(function (value) {
+    if(value){
+        scene.add( dirLight );  //creates shadows
+    } else{
+        scene.remove( dirLight );  //creates shadows
+    }
+}); 
 
+/*  
+// TODO Load the HeightMap from <input> picker
 
-gui.add( effectController, 'focalLength', 1, 135, 0.01 ).onChange( OnGuiInteraction );
-gui.add( effectController, 'fstop', 1.8, 22, 0.01 ).onChange( OnGuiInteraction );
-gui.add( effectController, 'focalDepth', 0.1, 100, 0.001 ).onChange( OnGuiInteraction );
-gui.add( effectController, 'showFocus', true ).onChange( OnGuiInteraction );
+var input = document.createElement('input');
+input.type = 'file';
+input.onchange = e => { 
+   var file = e.target.files[0]; 
+   console.dir(file)
+}
+
+var obj = { add:function(){ 
+    input.click();
+    //document.getElementById('file-input').click(); console.log("clicked") }
+}};
+
+gui.add(obj,'add');
+*/
