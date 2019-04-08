@@ -3,19 +3,10 @@
 */
 
 // Global variables and constants
-// var clock = new THREE.Clock();
-
-
-
-
-
-
-
-
 var camera, scene, renderer, controls;
 
+// PointerLockControls variables
 var objects = [];
-
 var raycaster;
 
 var moveForward = false;
@@ -30,137 +21,23 @@ var direction = new THREE.Vector3();
 var vertex = new THREE.Vector3();
 var color = new THREE.Color();
 
-init();
-animate();
+
 
 function init() {
-
-	camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 1, 1000 );
-
-	scene = new THREE.Scene();
-	scene.background = new THREE.Color( 0xffffff );
-	scene.fog = new THREE.Fog( 0xffffff, 0, 750 );
 	InitStat();
-	var light = new THREE.HemisphereLight( 0xeeeeff, 0x777788, 0.75 );
-	light.position.set( 0.5, 1, 0.75 );
-	scene.add( light );
-
-	controls = new THREE.PointerLockControls( camera );
-
-	var blocker = document.getElementById( 'blocker' );
-	var instructions = document.getElementById( 'instructions' );
-
-	instructions.addEventListener( 'click', function () {
-
-		controls.lock();
-
-	}, false );
-
-	controls.addEventListener( 'lock', function () {
-
-		instructions.style.display = 'none';
-		blocker.style.display = 'none';
-
-	} );
-
-	controls.addEventListener( 'unlock', function () {
-
-		blocker.style.display = 'block';
-		instructions.style.display = '';
-
-	} );
-
-	scene.add( controls.getObject() );
-
-    InitGround();
-	var onKeyDown = function ( event ) {
-
-		switch ( event.keyCode ) {
-
-			case 38: // up
-			case 87: // w
-				moveForward = true;
-				break;
-
-			case 37: // left
-			case 65: // a
-				moveLeft = true;
-				break;
-
-			case 40: // down
-			case 83: // s
-				moveBackward = true;
-				break;
-
-			case 39: // right
-			case 68: // d
-				moveRight = true;
-				break;
-
-			case 32: // space
-				if ( canJump === true ) velocity.y += 350;
-				canJump = false;
-				break;
-
-		}
-
-	};
-
-	var onKeyUp = function ( event ) {
-
-		switch ( event.keyCode ) {
-
-			case 38: // up
-			case 87: // w
-				moveForward = false;
-				break;
-
-			case 37: // left
-			case 65: // a
-				moveLeft = false;
-				break;
-
-			case 40: // down
-			case 83: // s
-				moveBackward = false;
-				break;
-
-			case 39: // right
-			case 68: // d
-				moveRight = false;
-				break;
-
-		}
-
-	};
-
-	document.addEventListener( 'keydown', onKeyDown, false );
-	document.addEventListener( 'keyup', onKeyUp, false );
+	InitScene();
+	InitCamera();
+	InitGround();
+	
+	document.addEventListener( 'keydown', OnKeyDown, false );
+	document.addEventListener( 'keyup', OnKeyUp, false );
+	window.addEventListener( 'resize', OnWindowResize, false );
 
 	raycaster = new THREE.Raycaster( new THREE.Vector3(), new THREE.Vector3( 0, - 1, 0 ), 0, 10 );
-
-
-
 	
-	renderer = new THREE.WebGLRenderer( { antialias: true } );
-	renderer.setPixelRatio( window.devicePixelRatio );
-	renderer.setSize( window.innerWidth, window.innerHeight );
-	document.body.appendChild( renderer.domElement );
-
-	//
-
-	window.addEventListener( 'resize', onWindowResize, false );
-
+	InitRenderer()
 }
 
-function onWindowResize() {
-
-	camera.aspect = window.innerWidth / window.innerHeight;
-	camera.updateProjectionMatrix();
-
-	renderer.setSize( window.innerWidth, window.innerHeight );
-
-}
 
 function animate() {
 
@@ -213,73 +90,31 @@ function animate() {
 		prevTime = time;
 
 	}
-
 	renderer.render( scene, camera );
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-container = document.getElementById( 'container' );
-//var scene, camera, renderer, controls, stats, heightmap;
-//var n = 10;
-//var radius = 100, theta = 0;
 
 
 function InitRenderer(){
 	renderer = new THREE.WebGLRenderer( { antialias: true } );
-	renderer.setSize( window.innerWidth, window.innerHeight );
-	renderer.setClearColor( 0xf0f0f0 );
 	renderer.setPixelRatio( window.devicePixelRatio );
-	renderer.gammaInput = true;
+	renderer.setSize( window.innerWidth, window.innerHeight );
 	renderer.gammaOutput = true;
+	renderer.gammaInput = true;
 	renderer.shadowMap.enabled = true;
-
-	container.innerHTML = "";
-	container.appendChild( renderer.domElement );
-	container.appendChild( stats.dom );
+	document.body.appendChild( renderer.domElement );
 }
 
+
 function InitScene(){
-    scene = new THREE.Scene();
+
+	scene = new THREE.Scene();
+	scene.background = new THREE.Color( 0xffffff );
+	scene.fog = new THREE.Fog( 0xffffff, 0, 750 );
+	
     scene.add( CreateHemiLight() ); //creates a base uniform light 
 	scene.add( CreateDirLight() );  //creates shadows
-	scene.background = new THREE.Color( 0xffffff/*0xf1e1e1*/ );
-	scene.fog = new THREE.FogExp2( 0xffffff, 0.05 );
-	//scene.fog = new THREE.Fog( 0xffffff, 200, 250 );
-	var ambientLight = new THREE.AmbientLight( 0xcccccc );
-	scene.add( ambientLight );
+	//var ambientLight = new THREE.AmbientLight( 0xcccccc );
+	//scene.add( ambientLight );
 }
 
 
@@ -290,79 +125,7 @@ function InitStat(){
 	document.body.appendChild( stats.domElement );
 }
 
-
-function Start() {
-    InitStat();
-    InitRenderer();
-    InitScene();
-    InitGround();
-	InitCamera();
-	// uncomment if you need to draw coordinate axes when building the scene
-	Coordinates.drawAllAxes();
-	window.addEventListener( 'resize', OnWindowResize, false );
-	document.addEventListener( 'mousemove', OnMouseMove, false );
-	window.addEventListener( 'wheel', OnMouseWheel, false );
-	raycaster = new THREE.Raycaster();
-}
-
-function Update() {
-	requestAnimationFrame( Update );
-	// controls.update( clock.getDelta() );
-	//controls.update();  
-	stats.update();
-	Render();
-}
-
-function Render() {
-	// theta += 0.1;
-	// camera.position.x = radius * Math.sin( THREE.Math.degToRad( theta ) );
-	// camera.position.y = radius * Math.sin( THREE.Math.degToRad( theta ) );
-	// camera.position.z = radius * Math.cos( THREE.Math.degToRad( theta ) );
-	// camera.lookAt( scene.position );
-	// console.log(scene.position);
-
-	camera.updateMatrixWorld();
-	renderer.render(scene, camera);
-
-
-
-
-
-
-
-
-	if ( /*controls.isLocked === true*/ true ) {
-		raycaster.ray.origin.copy( controls.getObject().position );
-		raycaster.ray.origin.y -= 10;
-		var intersections = raycaster.intersectObjects( objects );
-		var onObject = intersections.length > 0;
-		var time = performance.now();
-		var delta = ( time - prevTime ) / 1000;
-		velocity.x -= velocity.x * 10.0 * delta;
-		velocity.z -= velocity.z * 10.0 * delta;
-		velocity.y -= 9.8 * 100.0 * delta; // 100.0 = mass
-		direction.z = Number( moveForward ) - Number( moveBackward );
-		direction.x = Number( moveLeft ) - Number( moveRight );
-		direction.normalize(); // this ensures consistent movements in all directions
-		if ( moveForward || moveBackward ) velocity.z -= direction.z * 400.0 * delta;
-		if ( moveLeft || moveRight ) velocity.x -= direction.x * 400.0 * delta;
-		if ( onObject === true ) {
-			velocity.y = Math.max( 0, velocity.y );
-			canJump = true;
-		}
-		controls.getObject().translateX( velocity.x * delta );
-		controls.getObject().translateY( velocity.y * delta );
-		controls.getObject().translateZ( velocity.z * delta );
-		if ( controls.getObject().position.y < 10 ) {
-			velocity.y = 0;
-			controls.getObject().position.y = 10;
-			canJump = true;
-		}
-		prevTime = time;
-	}
-}
-
 //Start();
 //Update();
-			
-		
+init();
+animate();
