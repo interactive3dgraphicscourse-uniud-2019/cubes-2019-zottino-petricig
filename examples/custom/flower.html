@@ -1,0 +1,91 @@
+<html>
+    <head> 
+        <title> Flower </title>
+    </head>
+
+    <script src="lib/three.js"></script>
+    <script src="lib/stats.min.js"></script>
+    <script src="lib/Coordinates.js"></script>
+    <script src="lib/OrbitControls.js"></script>
+    <body>
+    </body>
+
+    <script>
+
+        var stats, scene, camera, renderer, controls;
+
+        function Init(){
+            scene = new THREE.Scene();
+            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            camera.position.z = 20;
+
+
+            // cone 
+            var cone_radious = 1;
+            var cone_height = 10;
+            var cone_angle = Math.atan(cone_radious/cone_height); 
+            var cone_angle_degree = cone_angle * 180/Math.PI; 
+            var radial_segments = 32;
+
+            var crone = new THREE.Group();
+            var flower = new THREE.Group();
+            var center_geometry = new THREE.SphereBufferGeometry( 1, radial_segments, radial_segments );
+            var center_material = new THREE.MeshBasicMaterial( {color: 0xffff00} );
+            var center = new THREE.Mesh( center_geometry, center_material );
+            
+            var geometry = new THREE.CylinderBufferGeometry( 0, cone_radious, cone_height, radial_segments );
+            var material = new THREE.MeshBasicMaterial( { color: 0xF50000 } );
+            var cone = new THREE.Mesh( geometry, material );
+            cone.position.y -= cone_height /2
+            center.add( cone );
+
+            for(var i = 0; i < 360/(cone_angle_degree * 4); i++){
+                var new_cone = center.clone()
+                new_cone.rotation.x += 4*i*cone_angle;
+                crone.add(new_cone);
+            }
+
+            for(var i = 0; i < 360/(cone_angle_degree * 4); i++){
+                var new_crone = crone.clone()
+                new_crone.rotation.z += 4*i*cone_angle;
+                flower.add(new_crone);
+            }
+
+            var stem_geometry = new THREE.CylinderBufferGeometry( 1,1,2*cone_height, radial_segments );
+            var stem_material = new THREE.MeshBasicMaterial( { color: 0x000000 } );
+            var stem = new THREE.Mesh( stem_geometry, stem_material );
+            stem.position.y -= cone_height
+            scene.add(stem)
+            scene.add(flower)
+
+            renderer = new THREE.WebGLRenderer();
+            renderer.setClearColor( 0xf0f0f0 ); 	
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            document.body.appendChild(renderer.domElement)
+            
+            // Stats
+            stats = new Stats();
+			stats.domElement.style.position = 'absolute';
+			stats.domElement.style.top = '0px';
+            document.body.appendChild( stats.domElement );
+            
+            // Draw Axes
+            Coordinates.drawAllAxes();
+            
+            // Orbit Controls
+            controls = new THREE.OrbitControls( camera );
+            
+        }
+        
+        function Render(){
+            stats.update();
+            controls.update();
+            requestAnimationFrame(Render); 
+            renderer.render(scene, camera);
+        }
+
+        Init();
+        Render();
+    
+    </script>
+</html>

@@ -1,22 +1,18 @@
 /*
-* TODO doc
+* Camera management class
 */
 
-// alert('camera-manager imported')
-
-
+/*
+* Init camera and call PointerLockControls init
+*/
 function InitCamera(){
 	camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 1, 1000 );
 	InitControl()
 }
 
-
-function InitPosition(){
-	//camera.lookAt( new THREE.Vector3( 10, heightmap.matrix[heightmap.width/2][heightmap.height/2].height + 2, 10 ) );
-	//camera.position.set( 0, heightmap.matrix[heightmap.width/2][heightmap.height/2].height + 2, 0 );
-}
-
-
+/*
+* Init PointerLockControls, see https://github.com/mrdoob/three.js/blob/master/examples/misc_controls_pointerlock.html
+*/
 function InitControl(){
 	controls = new THREE.PointerLockControls( camera );
 

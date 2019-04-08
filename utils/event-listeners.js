@@ -1,3 +1,6 @@
+/*
+* Define an event listener on the key pression, see https://github.com/mrdoob/three.js/blob/master/examples/misc_controls_pointerlock.html
+*/
 function OnKeyDown ( event ) {
 
     switch ( event.keyCode ) {
@@ -31,6 +34,9 @@ function OnKeyDown ( event ) {
 
 };
 
+/*
+* Define an event listener on the key release, see https://github.com/mrdoob/three.js/blob/master/examples/misc_controls_pointerlock.html
+*/
 function OnKeyUp ( event ) {
 
     switch ( event.keyCode ) {
@@ -59,11 +65,11 @@ function OnKeyUp ( event ) {
 
 };
 
-
+/*
+* Define an event listener on the window resize event (in order to adjust the aspect ratio)
+*/
 function OnWindowResize() {
 	camera.aspect = window.innerWidth / window.innerHeight;
 	camera.updateProjectionMatrix();
 	renderer.setSize( window.innerWidth, window.innerHeight );
 }
-
-function OnGuiInteraction(){}

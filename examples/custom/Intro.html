@@ -248,7 +248,6 @@
 				var a = new THREE.Vector3(octa.position.x * octa.bulbLight.scale.x, octa.position.y * octa.bulbLight.scale.y, octa.position.z * octa.bulbLight.scale.z);
 				var b = camera.position;
 				var distance = Math.sqrt(Math.pow(a.x + b.x, 2) + Math.pow(a.y + b.y, 2) + Math.pow(a.z + b.z, 2));
-				console.log(distance)
 				if (distance > 35000){
 					alert("end intro")
 				}

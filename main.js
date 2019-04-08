@@ -3,7 +3,10 @@
 */
 
 // Global variables and constants
-var camera, scene, renderer, controls;
+var camera, scene, renderer, controls, stats;
+
+// Lights
+var hemiLight, dirLight;
 
 // PointerLockControls variables
 var objects = [];
@@ -22,8 +25,10 @@ var vertex = new THREE.Vector3();
 var color = new THREE.Color();
 
 
-
-function init() {
+/*
+* Init function
+*/ 
+function Init() {
 	InitStat();
 	InitScene();
 	InitCamera();
@@ -39,9 +44,12 @@ function init() {
 }
 
 
-function animate() {
-
-	requestAnimationFrame( animate );
+/*
+* Loop function
+*/
+function Animate() {
+	stats.update()
+	requestAnimationFrame( Animate );
 
 	if ( controls.isLocked === true ) {
 
@@ -94,6 +102,9 @@ function animate() {
 }
 
 
+/*
+* Renderer init
+*/
 function InitRenderer(){
 	renderer = new THREE.WebGLRenderer( { antialias: true } );
 	renderer.setPixelRatio( window.devicePixelRatio );
@@ -105,19 +116,23 @@ function InitRenderer(){
 }
 
 
+/*
+* Scene init
+*/
 function InitScene(){
-
 	scene = new THREE.Scene();
 	scene.background = new THREE.Color( 0xffffff );
 	scene.fog = new THREE.Fog( 0xffffff, 0, 750 );
-	
-    scene.add( CreateHemiLight() ); //creates a base uniform light 
-	scene.add( CreateDirLight() );  //creates shadows
-	//var ambientLight = new THREE.AmbientLight( 0xcccccc );
-	//scene.add( ambientLight );
+	hemiLight = CreateHemiLight();
+	dirLight = CreateDirLight();
+    scene.add( hemiLight );  
+	scene.add( dirLight );  
 }
 
 
+/*
+* Stat init
+*/
 function InitStat(){
 	stats = new Stats();
 	stats.domElement.style.position = 'absolute';
@@ -125,7 +140,6 @@ function InitStat(){
 	document.body.appendChild( stats.domElement );
 }
 
-//Start();
-//Update();
-init();
-animate();
+
+Init();
+Animate();
