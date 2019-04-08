@@ -53,6 +53,7 @@ function BuildTerrain(){
 			}
 		}
 		scene.add(groundGroup);
+		objects.push( groundGroup );
 	}	
     InitPosition();
 }

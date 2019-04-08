@@ -12,6 +12,7 @@
 		<script src="libs/Coordinates.js"></script>
 		<script src="libs/OrbitControls.js"></script>
 		<script src="libs/dat.gui.min.js"></script>
+		<script src="libs/PointerLockControls.js"></script>
 
 		<script type="text/x-glsl" id="vertex">
 			uniform vec3 materialColor;
@@ -35,6 +36,16 @@
 	<body>
 		<div id="container"><br /><br /><br /><br /><br />Generating world...</div>
 		<div id="info">[First Course Project 2019 - World of Cubes]</div>
+
+				<div id="blocker">
+
+			<div id="instructions">
+				<span style="font-size:40px">Click to play</span>
+				<br />
+				(W, A, S, D = Move, SPACE = Jump, MOUSE = Look around)
+			</div>
+
+		</div>
 		<script src="models/BaseCube.js"></script>
 		<script src="models/SnowCube.js"></script>
 		<script src="models/RockCube.js"></script>
