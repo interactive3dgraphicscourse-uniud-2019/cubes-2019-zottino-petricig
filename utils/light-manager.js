@@ -1,19 +1,19 @@
 /*
-* TODO doc
+* Light manager
 */
 
-// alert('light-manager imported')
-
-
+/*
+* Init an HemisphereLight
+*/
 function CreateHemiLight(){
-    var hemiLight = new THREE.HemisphereLight( 0xffffff, 0xffffff, 0.6 );
-	hemiLight.color.setHSL( 0.6, 1, 0.6 );
-	hemiLight.groundColor.setHSL( 0.095, 1, 0.75 );
-    hemiLight.position.set( 0, 500, 0 );
+	var hemiLight = new THREE.HemisphereLight( 0xeeeeff, 0x777788, 0.75 );
+	hemiLight.position.set( 0.5, 1, 0.75 );
     return hemiLight;
 }
 
-
+/*
+* Init a DirectionalLight
+*/
 function CreateDirLight(){
     var dirLight = new THREE.DirectionalLight( 0xffffff, 1 );
 	dirLight.color.setHSL( 0.1, 1, 0.95 );
