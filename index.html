@@ -21,10 +21,11 @@
 		}
 	
 	</style>
-		<script src="../../libs/three.min.js"></script>
-		<script src="../../libs/stats.min.js"></script>
-		<script src="../../libs/Coordinates.js"></script>
-		<script src="../../models/Octahedron.js"></script>
+		<script src="libs/three.min.js"></script>
+		<script src="libs/stats.min.js"></script>
+		<script src="libs/Coordinates.js"></script>
+		<script src="models/Octahedron.js"></script>
+		<script src="libs/OrbitControls.js"></script>
 	</head>
 	<body>
 		
@@ -42,7 +43,7 @@
 		var numberOfMutations = 0;
 		var currentScale = 10;
 		var isIntroEnded = false;
-
+		var controls;
 
 		function Start() {
 			scene = new THREE.Scene();
@@ -104,6 +105,8 @@
 			dirLight.castShadow = true;
 			dirLight.shadow.mapSize.width = 1024;
 			dirLight.shadow.mapSize.height = 1024;
+			controls = new THREE.OrbitControls( camera );
+			controls.addEventListener( 'change', Render );
 		}
 		
 
@@ -141,6 +144,7 @@
 		function Update() {
 			if(! isIntroEnded ){
 				requestAnimationFrame( Update );
+				controls.update()
 				Render();
 			}
 		}
